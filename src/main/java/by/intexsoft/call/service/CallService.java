@@ -15,7 +15,7 @@ public interface CallService {
      * @param type  type of object
      * @param start beginning of period
      * @param end   end of period
-     * @return {@list List<Call>}
+     * @return {@link List<Call>}
      */
     List<Call> getCallsPeriodTime(String type, Date start, Date end);
 }

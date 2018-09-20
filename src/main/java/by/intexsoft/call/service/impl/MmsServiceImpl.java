@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+import static by.intexsoft.call.constant.RabbitMqConstant.MMS;
+
 /**
  * {@inheritDoc}
  */
@@ -25,7 +27,7 @@ public class MmsServiceImpl implements MmsService {
     @Override
     public List<Mms> getMmsPeriodTime(String type, Date start, Date end) {
         List<Mms> result = null;
-        if (type.equalsIgnoreCase("mms")) {
+        if (type.equalsIgnoreCase(MMS)) {
             result = mmsRepository.findAllPeriodTime(start, end);
         }
         return result;

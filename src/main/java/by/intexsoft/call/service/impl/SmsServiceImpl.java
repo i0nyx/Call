@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static by.intexsoft.call.constant.RabbitMqConstant.SMS;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -21,7 +23,7 @@ public class SmsServiceImpl implements SmsService {
     @Override
     public List<Sms> getSmsPeriodTime(String type, Date start, Date end) {
         List<Sms> result = null;
-        if (type.equalsIgnoreCase("sms")) {
+        if (type.equalsIgnoreCase(SMS)) {
             result = smsRepository.findAllPeriodTime(start, end);
         }
         return result;
