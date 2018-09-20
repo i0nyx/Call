@@ -3,14 +3,16 @@ package by.intexsoft.call.util;
 import java.util.Date;
 
 /**
- *
+ * Utility class for working with messages
  */
 public final class GenerateMessage {
     /**
-     * @param startDate
-     * @param endDate
-     * @param size
-     * @return
+     * Method of message generation
+     *
+     * @param startDate initial value
+     * @param endDate   final value
+     * @param size      size of the list of objects
+     * @return {@link String}
      */
     public static String createMessage(Date startDate, Date endDate, int size) {
         StringBuilder sb = new StringBuilder();

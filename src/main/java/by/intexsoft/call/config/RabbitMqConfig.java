@@ -55,7 +55,7 @@ public class RabbitMqConfig {
     }
 
     /**
-     * Creatge a {@link Queue}
+     * Create a {@link Queue}
      */
     @Bean
     public Queue smsQueue() {
@@ -63,7 +63,7 @@ public class RabbitMqConfig {
     }
 
     /**
-     * Creatge a {@link Queue}
+     * Create a {@link Queue}
      */
     @Bean
     public Queue mmsQueue() {
@@ -118,7 +118,6 @@ public class RabbitMqConfig {
      * Create a {@link RabbitTemplate}.
      *
      * @see #connectionFactory()
-     * @see #messageConverter()
      */
     @Bean
     public RabbitTemplate template() {
@@ -136,5 +135,4 @@ public class RabbitMqConfig {
     public MessageConverter messageConverter() {
         return new JsonMessageConverter();
     }
-
 }

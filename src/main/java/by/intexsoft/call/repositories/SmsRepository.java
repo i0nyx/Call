@@ -13,7 +13,13 @@ import java.util.List;
  */
 @Repository
 public interface SmsRepository extends CassandraRepository<Sms, Integer> {
-
+    /**
+     * Method returns a list of sms for a period of time
+     *
+     * @param start initial value
+     * @param end   final value
+     * @return {@link List<Sms>}
+     */
     @Query("select * from sms where date>=?0 and date<=?1 allow filtering")
     List<Sms> findAllPeriodTime(Date start, Date end);
 }

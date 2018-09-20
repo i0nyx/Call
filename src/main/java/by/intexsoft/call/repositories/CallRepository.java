@@ -14,10 +14,11 @@ import java.util.List;
 @Repository
 public interface CallRepository extends CassandraRepository<Call, Integer> {
     /**
+     * Method returns a list of calls for a period of time
      *
-     * @param start
-     * @param end
-     * @return
+     * @param start initial value
+     * @param end   final value
+     * @return {@link List<Call>}
      */
     @Query("select * from call where date>=?0 and date<=?1 allow filtering")
     List<Call> findAllPeriodTime(Date start, Date end);

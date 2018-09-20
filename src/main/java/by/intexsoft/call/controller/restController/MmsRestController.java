@@ -19,6 +19,9 @@ import java.util.List;
 
 import static by.intexsoft.call.constant.RabbitMqConstant.MMS;
 
+/**
+ * Class controller listens to URL address of rest/mms
+ */
 @RestController
 @RequestMapping(value = "/rest/")
 @AllArgsConstructor
@@ -28,6 +31,15 @@ public class MmsRestController {
     public final SaveToFileService fileService;
     public final MessageService messageService;
 
+    /**
+     * The method converts the received data. Gets a list of mms for a certain period of time.
+     * Saves the resulting list to a file and sends the statistics to the queue
+     *
+     * @param data json data
+     * @see #mmsService
+     * @see #fileService
+     * @see #messageService
+     */
     @PostMapping(value = "mms")
     public void mmsInfo(@RequestBody String data) {
         JSONObject json = new JSONObject(data);

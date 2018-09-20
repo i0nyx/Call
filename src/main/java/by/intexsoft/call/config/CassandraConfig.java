@@ -55,11 +55,24 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
         return new CassandraMappingContext();
     }
 
+    /**
+     * Create {@link MappingCassandraConverter}
+     *
+     * @return {@link CassandraConverter}
+     * @see #mappingContext()
+     */
     @Bean
     public CassandraConverter converter() {
         return new MappingCassandraConverter(mappingContext());
     }
 
+    /**
+     * Create {@link CassandraSessionFactoryBean}
+     *
+     * @see #cluster()
+     * @see #converter()
+     * @see #getSchemaAction()
+     */
     @Bean
     public CassandraSessionFactoryBean session() {
         CassandraSessionFactoryBean session = new CassandraSessionFactoryBean();
@@ -70,6 +83,9 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
         return session;
     }
 
+    /**
+     * @return {@link SchemaAction}
+     */
     @Bean
     public SchemaAction getSchemaAction() {
         return SchemaAction.CREATE;

@@ -7,19 +7,23 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static by.intexsoft.call.constant.RabbitMqConstant.SMS;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 @AllArgsConstructor
 @Slf4j
 public class SmsServiceImpl implements SmsService {
     private final SmsRepository smsRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Sms> getSmsPeriodTime(String type, Date start, Date end) {
         List<Sms> result = null;

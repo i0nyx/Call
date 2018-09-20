@@ -20,7 +20,7 @@ import java.util.List;
 import static by.intexsoft.call.constant.RabbitMqConstant.CALL;
 
 /**
- * Class controller listens to URL address of calls
+ * Class controller listens to URL address of rest/calls
  */
 @RestController
 @RequestMapping(value = "/rest/")
@@ -32,7 +32,13 @@ public class CallRestController {
     private final MessageService messageService;
 
     /**
+     * The method converts the received data. Gets a list of calls for a certain period of time.
+     * Saves the resulting list to a file and sends the statistics to the queue
+     *
      * @param data json data
+     * @see #callService
+     * @see #fileService
+     * @see #messageService
      */
     @PostMapping(value = "calls")
     public void callInfo(@RequestBody String data) {
