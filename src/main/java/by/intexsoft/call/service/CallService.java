@@ -2,6 +2,7 @@ package by.intexsoft.call.service;
 
 import by.intexsoft.call.pojo.Call;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,5 +17,5 @@ public interface CallService {
      * @param end   end of period
      * @return {@list List<Call>}
      */
-    List<Call> getCallsPeriodTime(String type, int start, int end);
+    List<Call> getCallsPeriodTime(String type, Date start, Date end);
 }

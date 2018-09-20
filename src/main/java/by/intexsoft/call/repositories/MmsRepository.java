@@ -2,11 +2,18 @@ package by.intexsoft.call.repositories;
 
 import by.intexsoft.call.pojo.Mms;
 import org.springframework.data.cassandra.repository.CassandraRepository;
+import org.springframework.data.cassandra.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * This interface uses methods inherited from the class {@link CassandraRepository}.
  */
 @Repository
 public interface MmsRepository extends CassandraRepository<Mms, Integer> {
+
+    @Query("select * from mms where date>=?0 and date<=?1 allow filtering")
+    List<Mms> findAllPeriodTime(Date start, Date end);
 }

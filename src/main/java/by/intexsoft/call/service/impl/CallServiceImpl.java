@@ -6,8 +6,10 @@ import by.intexsoft.call.service.CallService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static by.intexsoft.call.constant.RabbitMqConstant.CALL;
 
 /**
  * {@inheritDoc}
@@ -21,13 +23,10 @@ public class CallServiceImpl implements CallService {
      * {@inheritDoc}
      */
     @Override
-    public List<Call> getCallsPeriodTime(String type, int start, int end) {
+    public List<Call> getCallsPeriodTime(String type, Date start, Date end) {
         List<Call> result = null;
-        if (type.equalsIgnoreCase("call")) {
-            List<Call> lists = callRepository.findAll();
-            result = lists.stream().
-                    filter(c -> (c.getDate().getTime() / 1000) >= start && (c.getDate().getTime() / 1000) <= end).
-                    collect(Collectors.toList());
+        if (type.equalsIgnoreCase(CALL)) {
+            result = callRepository.findAllPeriodTime(start, end);
         }
         return result;
     }
