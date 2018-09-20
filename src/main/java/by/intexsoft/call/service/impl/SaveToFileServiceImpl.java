@@ -9,9 +9,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 @Slf4j
 public class SaveToFileServiceImpl implements SaveToFileService {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <T> void saveToFile(List<T> data, String type) {
         Optional.ofNullable(data).orElseThrow(NullPointerException::new);

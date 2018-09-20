@@ -19,7 +19,7 @@ import java.util.List;
 import static by.intexsoft.call.constant.RabbitMqConstant.SMS;
 
 /**
- *
+ * Class controller listens to URL address of rest/sms
  */
 @RestController
 @RequestMapping(value = "/rest/")
@@ -30,8 +30,13 @@ public class SmsRestController {
     private final MessageService messageService;
 
     /**
+     * The method converts the received data. Gets a list of sms for a certain period of time.
+     * Saves the resulting list to a file and sends the statistics to the queue
      *
-     * @param data
+     * @param data json data
+     * @see #smsService
+     * @see #fileService
+     * @see #messageService
      */
     @PostMapping(value = "sms")
     public void smsInfo(@RequestBody String data) {
