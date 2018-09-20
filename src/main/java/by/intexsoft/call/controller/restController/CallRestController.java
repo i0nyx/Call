@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Class controller listens to URL address of calls
@@ -34,7 +33,6 @@ public class CallRestController {
         int dataStart = DateConverter.stringToDate(json.getString("start"));
         int dataEnd = DateConverter.stringToDate(json.getString("end"));
         List<Call> calls = callService.getCallsPeriodTime(type, dataStart, dataEnd);
-        Optional.ofNullable(calls).orElseThrow(NullPointerException::new);
         fileService.saveToFile(calls, type);
     }
 }

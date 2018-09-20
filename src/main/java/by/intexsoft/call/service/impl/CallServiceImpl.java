@@ -26,9 +26,9 @@ public class CallServiceImpl implements CallService {
         if (type.equalsIgnoreCase("call")) {
             List<Call> lists = callRepository.findAll();
             result = lists.stream().
-                    filter(c -> ((c.getDate().getTime() / 1000)) >= start && ((c.getDate().getTime() / 1000)) <= end).
+                    filter(c -> (c.getDate().getTime() / 1000) >= start && (c.getDate().getTime() / 1000) <= end).
                     collect(Collectors.toList());
         }
-        return result.size() > 0 ? result : null;
+        return result;
     }
 }

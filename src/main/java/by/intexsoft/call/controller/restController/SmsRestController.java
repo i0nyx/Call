@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/rest/")
@@ -22,13 +21,12 @@ public class SmsRestController {
     private final SaveToFileService fileService;
 
     @PostMapping(value = "sms")
-    public void smsInfo(@RequestBody String data){
+    public void smsInfo(@RequestBody String data) {
         JSONObject json = new JSONObject(data);
         String type = json.getString("type");
         int dataStart = DateConverter.stringToDate(json.getString("start"));
         int dataEnd = DateConverter.stringToDate(json.getString("end"));
         List<Sms> smsList = smsService.getSmsPeriodTime(type, dataStart, dataEnd);
-        Optional.ofNullable(smsList).orElseThrow(NullPointerException::new);
         fileService.saveToFile(smsList, type);
     }
 }

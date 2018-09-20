@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -18,17 +19,15 @@ import java.util.List;
 @Slf4j
 public class MmsServiceImpl implements MmsService {
     private final MmsRepository mmsRepository;
+
     @Override
     public List<Mms> getMmsPeriodTime(String type, int start, int end) {
         List<Mms> result = new ArrayList<>();
-        if(type.equalsIgnoreCase("mms")){
+        if (type.equalsIgnoreCase("mms")) {
             List<Mms> lists = mmsRepository.findAll();
-            for(Mms c : lists){
-                int currentTime = (int) (c.getDate().getTime() / 1000);
-                if(currentTime>=start && currentTime<=end){
-                    result.add(c);
-                }
-            }
+            result = lists.stream().
+                    filter(c -> (c.getDate().getTime() / 1000) >= start && (c.getDate().getTime() / 1000) <= end).
+                    collect(Collectors.toList());
         }
         return result;
     }
