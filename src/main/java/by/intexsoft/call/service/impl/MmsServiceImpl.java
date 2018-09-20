@@ -22,7 +22,7 @@ public class MmsServiceImpl implements MmsService {
 
     @Override
     public List<Mms> getMmsPeriodTime(String type, int start, int end) {
-        List<Mms> result = new ArrayList<>();
+        List<Mms> result = null;
         if (type.equalsIgnoreCase("mms")) {
             List<Mms> lists = mmsRepository.findAll();
             result = lists.stream().

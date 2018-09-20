@@ -19,7 +19,7 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public List<Sms> getSmsPeriodTime(String type, int start, int end) {
-        List<Sms> result = new ArrayList<>();
+        List<Sms> result = null;
         if (type.equalsIgnoreCase("sms")) {
             List<Sms> lists = smsRepository.findAll();
             result = lists.stream().
