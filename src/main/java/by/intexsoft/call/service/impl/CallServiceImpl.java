@@ -6,8 +6,8 @@ import by.intexsoft.call.service.CallService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * {@inheritDoc}
@@ -22,15 +22,12 @@ public class CallServiceImpl implements CallService {
      */
     @Override
     public List<Call> getCallsPeriodTime(String type, int start, int end) {
-        List<Call> result = new ArrayList<>();
-        if(type.equalsIgnoreCase("call")){
+        List<Call> result = null;
+        if (type.equalsIgnoreCase("call")) {
             List<Call> lists = callRepository.findAll();
-            for(Call c : lists){
-                int currentTime = (int) (c.getDate().getTime() / 1000);
-                if(currentTime>=start && currentTime<=end){
-                    result.add(c);
-                }
-            }
+            result = lists.stream().
+                    filter(c -> (c.getDate().getTime() / 1000) >= start && (c.getDate().getTime() / 1000) <= end).
+                    collect(Collectors.toList());
         }
         return result;
     }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -21,12 +22,9 @@ public class SmsServiceImpl implements SmsService {
         List<Sms> result = new ArrayList<>();
         if (type.equalsIgnoreCase("sms")) {
             List<Sms> lists = smsRepository.findAll();
-            for (Sms s : lists) {
-                int currentTime = (int) (s.getDate().getTime() / 1000);
-                if (currentTime >= start && currentTime <= end) {
-                    result.add(s);
-                }
-            }
+            result = lists.stream().
+                    filter(c -> (c.getDate().getTime() / 1000) >= start && (c.getDate().getTime() / 1000) <= end).
+                    collect(Collectors.toList());
         }
         return result;
     }
