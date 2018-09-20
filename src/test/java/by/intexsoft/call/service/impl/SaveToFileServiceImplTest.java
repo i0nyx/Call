@@ -1,41 +1,57 @@
 package by.intexsoft.call.service.impl;
 
+import by.intexsoft.call.pojo.Call;
 import by.intexsoft.call.service.SaveToFileService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({SaveToFileService.class, LoggerFactory.class})
 public class SaveToFileServiceImplTest {
     private SaveToFileService fileService;
+    private List<Call> lists;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         fileService = new SaveToFileServiceImpl();
+        lists = new ArrayList<>();
+        lists.add(buildCall());
     }
 
-    @Test(expected = IOException.class)
-    public void saveToFile() throws IOException {
-        List<Object> list = new ArrayList<>();
+    @Test
+    public void saveToFile() throws Exception {
         String type = "call";
-        fileService.saveToFile(list, type);
-        FileWriter writer = mock(FileWriter.class);
-        doThrow(new IOException()).when(writer).close();
-        writer.close();
+        fileService.saveToFile(lists, type);
+        mock(FileWriter.class);
+        whenNew(FileWriter.class).withArguments(new File("test.txt")).thenReturn(null);
+    }
+
+    @Test
+    public void failSaveToFile() {
+        String type = "call";
+        mockStatic(LoggerFactory.class);
+        Logger log = mock(Logger.class);
+        when(LoggerFactory.getLogger(SaveToFileServiceImpl.class)).thenReturn(log);
+        fileService.saveToFile(lists, type);
+        verify(log);
+    }
+
+    private Call buildCall() {
+        return Call.builder().uuid(UUID.randomUUID()).date(new Date()).build();
     }
 }
