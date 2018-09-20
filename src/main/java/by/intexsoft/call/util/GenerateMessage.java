@@ -1,5 +1,7 @@
 package by.intexsoft.call.util;
 
+import java.util.Date;
+
 /**
  *
  */
@@ -10,7 +12,7 @@ public final class GenerateMessage {
      * @param size
      * @return
      */
-    public static String createMessage(String startDate, String endDate, int size) {
+    public static String createMessage(Date startDate, Date endDate, int size) {
         StringBuilder sb = new StringBuilder();
         sb.append("за период с ");
         sb.append(startDate);

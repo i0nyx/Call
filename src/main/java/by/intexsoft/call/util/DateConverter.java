@@ -12,16 +12,20 @@ import java.util.Date;
 @Slf4j
 public final class DateConverter {
 
-    public static int stringToDate(String date) {
+    /**
+     *
+     * @param date
+     * @return
+     */
+    public static Date stringToDate(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        int time = 0;
+        Date result = null;
         try {
-            Date parseDate = dateFormat.parse(date);
-            time = (int) (parseDate.getTime() / 1000);
+            result = dateFormat.parse(date);
         } catch (ParseException e) {
             log.error("can't convert time " + e);
         }
-        return time;
+        return result;
     }
 
 

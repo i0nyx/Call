@@ -2,6 +2,7 @@ package by.intexsoft.call.service;
 
 import by.intexsoft.call.pojo.Mms;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,5 +16,5 @@ public interface MmsService {
      * @param end
      * @return
      */
-    List<Mms> getMmsPeriodTime(String type, int start, int end);
+    List<Mms> getMmsPeriodTime(String type, Date start, Date end);
 }

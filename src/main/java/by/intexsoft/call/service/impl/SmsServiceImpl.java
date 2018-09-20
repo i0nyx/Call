@@ -8,8 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static by.intexsoft.call.constant.RabbitMqConstant.SMS;
 
 @Service
 @AllArgsConstructor
@@ -18,13 +21,10 @@ public class SmsServiceImpl implements SmsService {
     private final SmsRepository smsRepository;
 
     @Override
-    public List<Sms> getSmsPeriodTime(String type, int start, int end) {
+    public List<Sms> getSmsPeriodTime(String type, Date start, Date end) {
         List<Sms> result = null;
-        if (type.equalsIgnoreCase("sms")) {
-            List<Sms> lists = smsRepository.findAll();
-            result = lists.stream().
-                    filter(c -> (c.getDate().getTime() / 1000) >= start && (c.getDate().getTime() / 1000) <= end).
-                    collect(Collectors.toList());
+        if (type.equalsIgnoreCase(SMS)) {
+            result = smsRepository.findAllPeriodTime(start, end);
         }
         return result;
     }

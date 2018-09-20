@@ -15,6 +15,8 @@ import org.springframework.data.cassandra.core.convert.MappingCassandraConverter
 import org.springframework.data.cassandra.core.mapping.CassandraMappingContext;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
+import java.util.Objects;
+
 /**
  * Class configuration Cassandra using JavaConfig
  */
@@ -41,7 +43,7 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     public CassandraClusterFactoryBean cluster() {
         CassandraClusterFactoryBean cluster = new CassandraClusterFactoryBean();
         cluster.setContactPoints(env.getProperty("cassandra.host"));
-        cluster.setPort(Integer.parseInt(env.getProperty("cassandra.port")));
+        cluster.setPort(Integer.parseInt(Objects.requireNonNull(env.getProperty("cassandra.port"))));
         return cluster;
     }
 
@@ -61,7 +63,7 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     @Bean
     public CassandraSessionFactoryBean session() {
         CassandraSessionFactoryBean session = new CassandraSessionFactoryBean();
-        session.setCluster(cluster().getObject());
+        session.setCluster(Objects.requireNonNull(cluster().getObject()));
         session.setKeyspaceName(getKeyspaceName());
         session.setConverter(converter());
         session.setSchemaAction(getSchemaAction());
