@@ -25,17 +25,19 @@ import static org.powermock.api.mockito.PowerMockito.*;
 public class SaveToFileServiceImplTest {
     private SaveToFileService fileService;
     private List<Call> lists;
+    private String type;
 
     @Before
     public void setUp() {
         fileService = new SaveToFileServiceImpl();
         lists = new ArrayList<>();
         lists.add(buildCall());
+        type = "call";
     }
 
     @Test
     public void saveToFile() throws Exception {
-        String type = "call";
+
         fileService.saveToFile(lists, type);
         mock(FileWriter.class);
         whenNew(FileWriter.class).withArguments(new File("test.txt")).thenReturn(null);
@@ -43,7 +45,6 @@ public class SaveToFileServiceImplTest {
 
     @Test
     public void failSaveToFile() {
-        String type = "call";
         mockStatic(LoggerFactory.class);
         Logger log = mock(Logger.class);
         when(LoggerFactory.getLogger(SaveToFileServiceImpl.class)).thenReturn(log);
