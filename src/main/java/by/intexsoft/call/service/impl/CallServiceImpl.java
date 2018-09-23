@@ -23,11 +23,16 @@ public class CallServiceImpl implements CallService {
      * {@inheritDoc}
      */
     @Override
-    public List<Call> getCallsPeriodTime(String type, Date start, Date end) {
+    public List<Call> loadCallByTime(String type, Date start, Date end) {
         List<Call> result = null;
         if (type.equalsIgnoreCase(CALL)) {
             result = callRepository.findAllPeriodTime(start, end);
         }
         return result;
+    }
+
+    @Override
+    public List<Call> loadByTime(Date start, Date end) {
+        return callRepository.findAllPeriodTime(start, end);
     }
 }

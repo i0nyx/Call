@@ -32,4 +32,9 @@ public class SmsServiceImpl implements SmsService {
         }
         return result;
     }
+
+    @Override
+    public List<Sms> loadByTime(Date start, Date end) {
+        return smsRepository.findAllPeriodTime(start, end);
+    }
 }

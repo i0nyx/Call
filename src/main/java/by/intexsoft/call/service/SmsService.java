@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Description of methods for working with sms
  */
-public interface SmsService {
+public interface SmsService extends ConvertService{
     /**
      * Method of return a list of sms for a period time
      *

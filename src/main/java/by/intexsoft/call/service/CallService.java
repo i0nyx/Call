@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Description of methods for working with calls
  */
-public interface CallService {
+public interface CallService extends ConvertService{
     /**
      * Method of returning a list of calls for a period of time
      *
@@ -17,5 +17,7 @@ public interface CallService {
      * @param end   end of period
      * @return {@link List<Call>}
      */
-    List<Call> getCallsPeriodTime(String type, Date start, Date end);
+    List<Call> loadCallByTime(String type, Date start, Date end);
+
+    List<Call> loadByTime(Date start, Date end);
 }

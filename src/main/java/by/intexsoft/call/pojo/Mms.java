@@ -18,4 +18,5 @@ public class Mms {
     @PrimaryKey
     private UUID uuid;
     private Date date;
+    private Type type;
 }

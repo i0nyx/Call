@@ -1,6 +1,7 @@
 package by.intexsoft.call.service.impl;
 
 import by.intexsoft.call.pojo.Mms;
+import by.intexsoft.call.pojo.Sms;
 import by.intexsoft.call.repositories.MmsRepository;
 import by.intexsoft.call.service.MmsService;
 import lombok.AllArgsConstructor;
@@ -31,5 +32,10 @@ public class MmsServiceImpl implements MmsService {
             result = mmsRepository.findAllPeriodTime(start, end);
         }
         return result;
+    }
+
+    @Override
+    public List<Mms> loadByTime(Date start, Date end) {
+        return mmsRepository.findAllPeriodTime(start, end);
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Description of methods for working with mms
  */
-public interface MmsService {
+public interface MmsService extends ConvertService{
     /**
      * Method of return a list of mms for a period time
      *
@@ -18,4 +18,5 @@ public interface MmsService {
      * @return {@link List<Mms>}
      */
     List<Mms> getMmsPeriodTime(String type, Date start, Date end);
+//    List<Mms> loadByTime(Date start, Date end);
 }

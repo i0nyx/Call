@@ -22,5 +22,6 @@ public class Call {
     @PrimaryKey
     private UUID uuid;
     private Date date;
+    private Type type;
 
 }

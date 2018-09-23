@@ -29,7 +29,7 @@ public class CallServiceImplTest {
     public void testGetCalls(){
         String type = "call";
         Date date = mock(Date.class);
-        callService.getCallsPeriodTime(type, date, date);
+        callService.loadCallByTime(type, date, date);
         verify(callRepository).findAllPeriodTime(any(), any());
     }
 }
