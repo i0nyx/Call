@@ -25,25 +25,27 @@ import java.util.Objects;
 @ComponentScan("by.intexsoft.call")
 @EnableCassandraRepositories(basePackages = {"by.intexsoft.call.repositories"})
 @AllArgsConstructor
+
+// todo make via @Value without ENV
 public class CassandraConfig extends AbstractCassandraConfiguration {
-    private final Environment env;
+    private final Environment environment;
 
     /**
      * {@inheritDoc}
      */
     @Override
     protected String getKeyspaceName() {
-        return env.getProperty("cassandra.keyspace");
+        return environment.getProperty("cassandra.keyspace");
     }
 
     /**
-     * Create a {@link CassandraClusterFactoryBean}.
+     * Create a {@link CassandraClusterFactoryBean}
      */
     @Bean
     public CassandraClusterFactoryBean cluster() {
         CassandraClusterFactoryBean cluster = new CassandraClusterFactoryBean();
-        cluster.setContactPoints(env.getProperty("cassandra.host"));
-        cluster.setPort(Integer.parseInt(Objects.requireNonNull(env.getProperty("cassandra.port"))));
+        cluster.setContactPoints(environment.getProperty("cassandra.host"));
+        cluster.setPort(Integer.parseInt(Objects.requireNonNull(environment.getProperty("cassandra.port"))));
         return cluster;
     }
 

@@ -1,5 +1,6 @@
 package by.intexsoft.call.pojo;
 
+import by.intexsoft.call.pojo.type.Type;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

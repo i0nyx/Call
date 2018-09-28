@@ -1,5 +1,6 @@
 package by.intexsoft.call.service.impl;
 
+import by.intexsoft.call.pojo.RequestObject;
 import by.intexsoft.call.service.MessageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,8 @@ public class MessageServiceImpl implements MessageService {
      * {@inheritDoc}
      */
     @Override
-    public void sendMessageToQueue(String key, String message) {
-        template.convertAndSend(key, message);
+    public void sendMessageToQueue(RequestObject requestObject, String message) {
+        template.convertAndSend(requestObject.getType(), message);
+        log.info("send message success");
     }
 }

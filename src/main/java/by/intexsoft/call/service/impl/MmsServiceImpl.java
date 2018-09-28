@@ -1,8 +1,7 @@
 package by.intexsoft.call.service.impl;
 
-import by.intexsoft.call.constant.RabbitMqConstant;
 import by.intexsoft.call.pojo.Mms;
-import by.intexsoft.call.pojo.Type;
+import by.intexsoft.call.pojo.type.Type;
 import by.intexsoft.call.repositories.MmsRepository;
 import by.intexsoft.call.service.MmsService;
 import lombok.AllArgsConstructor;
@@ -27,7 +26,7 @@ public class MmsServiceImpl implements MmsService {
     @Override
     public List<Mms> getMmsPeriodTime(String type, Date start, Date end) {
         List<Mms> result = null;
-        if (type.equalsIgnoreCase(RabbitMqConstant.MMS)) {
+        if (type.equalsIgnoreCase(getType().toString())) {
             result = mmsRepository.findAllPeriodTime(start, end);
         }
         return result;

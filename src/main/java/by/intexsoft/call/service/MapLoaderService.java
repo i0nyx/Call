@@ -1,6 +1,6 @@
 package by.intexsoft.call.service;
 
-import by.intexsoft.call.pojo.Type;
+import by.intexsoft.call.pojo.type.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

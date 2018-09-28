@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!--<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>d:/logs/debug.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} - %msg%n
+            </Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>d:/logs/archived/debug.%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <MinIndex>1</MinIndex>
+            <MaxIndex>10</MaxIndex>
+        </rollingPolicy>
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>2MB</maxFileSize>
+        </triggeringPolicy>
+
+    </appender>-->
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>d:/log.txt</file>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</Pattern>
+        </layout>
+    </appender>
+
+    <logger name="by.intexsoft.call" level="debug"
+            additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <root level="debug">
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>

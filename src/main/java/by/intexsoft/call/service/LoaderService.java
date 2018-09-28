@@ -1,11 +1,12 @@
 package by.intexsoft.call.service;
 
-import by.intexsoft.call.pojo.Type;
+import by.intexsoft.call.pojo.RequestObject;
+import by.intexsoft.call.pojo.type.Type;
 
-import java.util.Date;
 import java.util.List;
 
 public interface LoaderService<T> {
-    List<T> load(String type, Date start, Date end);
+    List<T> load(RequestObject requestObject);
+
     Type getType(String type);
 }

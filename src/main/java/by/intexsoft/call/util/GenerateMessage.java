@@ -15,14 +15,14 @@ public final class GenerateMessage {
      * @return {@link String}
      */
     public static String createMessage(Date startDate, Date endDate, int size) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("за период с ");
-        sb.append(startDate);
-        sb.append(" по ");
-        sb.append(endDate);
-        sb.append(" : ");
-        sb.append(size);
-        sb.append(" - обьекта(ов)");
-        return sb.toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("за период с ");
+        stringBuilder.append(startDate);
+        stringBuilder.append(" по ");
+        stringBuilder.append(endDate);
+        stringBuilder.append(" : ");
+        stringBuilder.append(size);
+        stringBuilder.append(" - обьекта(ов)");
+        return stringBuilder.toString();
     }
 }

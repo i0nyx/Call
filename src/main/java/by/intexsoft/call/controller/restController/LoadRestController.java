@@ -1,19 +1,18 @@
 package by.intexsoft.call.controller.restController;
 
+import by.intexsoft.call.pojo.RequestObject;
+import by.intexsoft.call.pojo.ResponseObject;
 import by.intexsoft.call.service.LoaderService;
 import by.intexsoft.call.service.MessageService;
 import by.intexsoft.call.service.SaveToFileService;
 import by.intexsoft.call.util.DateConverter;
-import by.intexsoft.call.util.GenerateMessage;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,20 +30,28 @@ public class LoadRestController {
      * The method converts the received data. Gets a list of calls for a certain period of time.
      * Saves the resulting list to a file and sends the statistics to the queue
      *
-     * @param data json data
+     * @param request json data
      * @see #fileService
      * @see #messageService
      */
     @PostMapping(value = "calls")
-    public void callInfo(@RequestBody String data) {
-        JSONObject json = new JSONObject(data);
-        String type = json.getString("type");
-        Date startDate = DateConverter.stringToDate(json.getString("start"));
-        Date endDate = DateConverter.stringToDate(json.getString("end"));
-        List listObject = loaderService.load(type, startDate, endDate);
-        fileService.saveToFile(listObject, type);
-        String message = GenerateMessage.createMessage(startDate, endDate, listObject.size());
-        messageService.sendMessageToQueue(type, message);
+    public void callInfo(@RequestBody String request) {
+        RequestObject requestObject = buildRequestObject(request);
+        List<?> listObjects = loaderService.load(requestObject);
+        fileService.saveToFile(listObjects, requestObject); // todo resolve problem with list
+//        String message = GenerateMessage.createMessage(startDate, endDate, listObjects.size());
+        ResponseObject a = new ResponseObject();
+        messageService.sendMessageToQueue(requestObject, a.toString());
     }
+
+    private RequestObject buildRequestObject(String data){
+        JSONObject json = new JSONObject(data);
+        return RequestObject.builder().type(json.getString("type"))
+                .startDate(DateConverter.stringToDate(json.getString("start")))
+                .endDate(DateConverter.stringToDate(json.getString("end")))
+                .build();
+    }
+
+
 
 }

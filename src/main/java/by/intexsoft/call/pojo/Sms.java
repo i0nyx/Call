@@ -1,5 +1,6 @@
 package by.intexsoft.call.pojo;
 
+import by.intexsoft.call.pojo.type.Type;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;

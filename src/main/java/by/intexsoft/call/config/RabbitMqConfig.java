@@ -13,7 +13,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
-import static by.intexsoft.call.constant.RabbitMqConstant.*;
+import static by.intexsoft.call.pojo.type.Type.*;
+
 
 /**
  * Class configuration RabbitMQ
@@ -22,6 +23,8 @@ import static by.intexsoft.call.constant.RabbitMqConstant.*;
 @ComponentScan("by.intexsoft.call")
 @PropertySource("classpath:rabbitmq.properties")
 @AllArgsConstructor
+
+// todo make via @Value without ENV
 public class RabbitMqConfig {
     private final Environment env;
 
@@ -47,11 +50,11 @@ public class RabbitMqConfig {
     }
 
     /**
-     * Creatge a {@link Queue}
+     * Create a {@link Queue}
      */
     @Bean
     public Queue callQueue() {
-        return new Queue(CALL);
+        return new Queue(CALL.toString());
     }
 
     /**
@@ -59,7 +62,7 @@ public class RabbitMqConfig {
      */
     @Bean
     public Queue smsQueue() {
-        return new Queue(SMS);
+        return new Queue(SMS.toString());
     }
 
     /**
@@ -67,7 +70,7 @@ public class RabbitMqConfig {
      */
     @Bean
     public Queue mmsQueue() {
-        return new Queue(MMS);
+        return new Queue(MMS.toString());
     }
 
     /**
@@ -75,7 +78,7 @@ public class RabbitMqConfig {
      */
     @Bean
     public DirectExchange directExchange() {
-        return new DirectExchange(EXCHANGE);
+        return new DirectExchange(env.getProperty("rabbit.exchange"));
     }
 
     /**
@@ -122,7 +125,7 @@ public class RabbitMqConfig {
     @Bean
     public RabbitTemplate template() {
         RabbitTemplate template = new RabbitTemplate(connectionFactory());
-        template.setExchange(EXCHANGE);
+        template.setExchange(env.getProperty("rabbit.exchange"));
         return template;
     }
 

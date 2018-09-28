@@ -1,8 +1,7 @@
 package by.intexsoft.call.service.impl;
 
-import by.intexsoft.call.constant.RabbitMqConstant;
 import by.intexsoft.call.pojo.Sms;
-import by.intexsoft.call.pojo.Type;
+import by.intexsoft.call.pojo.type.Type;
 import by.intexsoft.call.repositories.SmsRepository;
 import by.intexsoft.call.service.SmsService;
 import lombok.AllArgsConstructor;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-import static by.intexsoft.call.pojo.Type.SMS;
+import static by.intexsoft.call.pojo.type.Type.SMS;
 
 /**
  * {@inheritDoc}
@@ -29,7 +28,7 @@ public class SmsServiceImpl implements SmsService {
     @Override
     public List<Sms> getSmsPeriodTime(String type, Date start, Date end) {
         List<Sms> result = null;
-        if (type.equalsIgnoreCase(RabbitMqConstant.SMS)) {
+        if (type.equalsIgnoreCase(getType().toString())) {
             result = smsRepository.findAllByPeriod(start, end);
         }
         return result;
