@@ -21,5 +21,5 @@ public interface CallRepository extends CassandraRepository<Call, Integer> {
      * @return {@link List<Call>}
      */
     @Query("select * from call where date>=?0 and date<=?1 allow filtering")
-    List<Call> findAllPeriodTime(Date start, Date end);
+    List<Call> findAllByPeriod(Date start, Date end);
 }

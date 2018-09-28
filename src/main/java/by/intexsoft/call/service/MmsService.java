@@ -18,5 +18,4 @@ public interface MmsService extends ConvertService{
      * @return {@link List<Mms>}
      */
     List<Mms> getMmsPeriodTime(String type, Date start, Date end);
-//    List<Mms> loadByTime(Date start, Date end);
 }

@@ -31,6 +31,6 @@ public class SmsServiceImplTest {
         String type = "sms";
         Date date = mock(Date.class);
         smsService.getSmsPeriodTime(type, date, date);
-        verify(smsRepository).findAllPeriodTime(any(), any());
+        verify(smsRepository).findAllByPeriod(any(), any());
     }
 }

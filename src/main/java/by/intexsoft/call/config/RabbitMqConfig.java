@@ -51,7 +51,7 @@ public class RabbitMqConfig {
      */
     @Bean
     public Queue callQueue() {
-        return new Queue(CALL_QUEUE);
+        return new Queue(CALL);
     }
 
     /**
@@ -59,7 +59,7 @@ public class RabbitMqConfig {
      */
     @Bean
     public Queue smsQueue() {
-        return new Queue(SMS_QUEUE);
+        return new Queue(SMS);
     }
 
     /**
@@ -67,7 +67,7 @@ public class RabbitMqConfig {
      */
     @Bean
     public Queue mmsQueue() {
-        return new Queue(MMS_QUEUE);
+        return new Queue(MMS);
     }
 
     /**

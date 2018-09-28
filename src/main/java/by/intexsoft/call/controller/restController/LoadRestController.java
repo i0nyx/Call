@@ -1,8 +1,7 @@
 package by.intexsoft.call.controller.restController;
 
-import by.intexsoft.call.pojo.Mms;
+import by.intexsoft.call.service.LoaderService;
 import by.intexsoft.call.service.MessageService;
-import by.intexsoft.call.service.MmsService;
 import by.intexsoft.call.service.SaveToFileService;
 import by.intexsoft.call.util.DateConverter;
 import by.intexsoft.call.util.GenerateMessage;
@@ -17,38 +16,35 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.List;
 
-import static by.intexsoft.call.constant.RabbitMqConstant.MMS;
-
 /**
- * Class controller listens to URL address of rest/mms
+ * Class controller listens to URL address of rest/calls
  */
 @RestController
 @RequestMapping(value = "/rest/")
 @AllArgsConstructor
-@Slf4j
-public class MmsRestController {
-    public final MmsService mmsService;
-    public final SaveToFileService fileService;
-    public final MessageService messageService;
+public class LoadRestController {
+    private final SaveToFileService fileService;
+    private final MessageService messageService;
+    private final LoaderService loaderService;
 
     /**
-     * The method converts the received data. Gets a list of mms for a certain period of time.
+     * The method converts the received data. Gets a list of calls for a certain period of time.
      * Saves the resulting list to a file and sends the statistics to the queue
      *
      * @param data json data
-     * @see #mmsService
      * @see #fileService
      * @see #messageService
      */
-    @PostMapping(value = "mms")
-    public void mmsInfo(@RequestBody String data) {
+    @PostMapping(value = "calls")
+    public void callInfo(@RequestBody String data) {
         JSONObject json = new JSONObject(data);
         String type = json.getString("type");
         Date startDate = DateConverter.stringToDate(json.getString("start"));
         Date endDate = DateConverter.stringToDate(json.getString("end"));
-        List<Mms> mmsList = mmsService.getMmsPeriodTime(type, startDate, endDate);
-        fileService.saveToFile(mmsList, type);
-        String message = GenerateMessage.createMessage(startDate, endDate, mmsList.size());
-        messageService.sendMessageToQueue(MMS, message);
+        List listObject = loaderService.load(type, startDate, endDate);
+        fileService.saveToFile(listObject, type);
+        String message = GenerateMessage.createMessage(startDate, endDate, listObject.size());
+        messageService.sendMessageToQueue(type, message);
     }
+
 }

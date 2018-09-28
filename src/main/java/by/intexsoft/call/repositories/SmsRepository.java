@@ -21,5 +21,5 @@ public interface SmsRepository extends CassandraRepository<Sms, Integer> {
      * @return {@link List<Sms>}
      */
     @Query("select * from sms where date>=?0 and date<=?1 allow filtering")
-    List<Sms> findAllPeriodTime(Date start, Date end);
+    List<Sms> findAllByPeriod(Date start, Date end);
 }

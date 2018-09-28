@@ -30,6 +30,6 @@ public class CallServiceImplTest {
         String type = "call";
         Date date = mock(Date.class);
         callService.loadCallByTime(type, date, date);
-        verify(callRepository).findAllPeriodTime(any(), any());
+        verify(callRepository).findAllByPeriod(any(), any());
     }
 }

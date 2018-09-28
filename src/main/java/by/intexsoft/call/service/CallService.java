@@ -18,6 +18,4 @@ public interface CallService extends ConvertService{
      * @return {@link List<Call>}
      */
     List<Call> loadCallByTime(String type, Date start, Date end);
-
-    List<Call> loadByTime(Date start, Date end);
 }
