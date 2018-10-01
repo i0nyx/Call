@@ -1,6 +1,5 @@
 package by.intexsoft.call.config;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,8 +23,6 @@ import java.util.Objects;
 @PropertySource("classpath:cassandra.properties")
 @ComponentScan("by.intexsoft.call")
 @EnableCassandraRepositories(basePackages = {"by.intexsoft.call.repositories"})
-@AllArgsConstructor
-
 public class CassandraConfig extends AbstractCassandraConfiguration {
     @Value("${cassandra.keyspace}")
     private String cassandraKeySpace;

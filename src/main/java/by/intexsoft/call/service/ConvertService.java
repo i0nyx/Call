@@ -9,16 +9,15 @@ import java.util.List;
  * Describes methods that return a list of objects by specific parameters
  * and a method that returns a specific type.
  */
-public interface ConvertService {
+public interface ConvertService<T> {
     /**
      * Returns a list of all objects for a specific period of time.
      *
      * @param start initial value
      * @param end   end value
-     * @param <T>   type of service
      * @return {@link List<T>}
      */
-    <T> List<T> loadObjectByTime(Date start, Date end);
+    List<T> loadObjectByTime(Date start, Date end);
 
     /**
      * Returns a specific type of service.

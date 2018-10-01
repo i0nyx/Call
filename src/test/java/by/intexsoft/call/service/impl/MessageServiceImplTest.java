@@ -1,21 +1,25 @@
 package by.intexsoft.call.service.impl;
 
+import by.intexsoft.call.pojo.RequestObject;
 import by.intexsoft.call.service.MessageService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.when;
 
-/*
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({MessageService.class})
+@PrepareForTest({MessageService.class, LoggerFactory.class})
 public class MessageServiceImplTest {
     private MessageService messageService;
     private RabbitTemplate template;
@@ -28,10 +32,18 @@ public class MessageServiceImplTest {
 
     @Test
     public void testSendMessageToQueue(){
-        String type = "call";
+        mockStatic(LoggerFactory.class);
+        Logger log = mock(Logger.class);
+        RequestObject requestObject = buildRequestObject();
         String message = "test message";
-        messageService.sendMessageToQueue(type, message);
+        messageService.sendMessageToQueue(requestObject, message);
         verify(template).convertAndSend(anyString(), (Object) any());
+        when(LoggerFactory.getLogger(MessageServiceImpl.class)).thenReturn(log);
+        verify(log);
     }
 
-}*/
+    private RequestObject buildRequestObject(){
+        return RequestObject.builder().type("call").build();
+    }
+
+}

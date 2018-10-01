@@ -16,7 +16,6 @@ public final class DateConverter {
      *
      * @param date date in format string
      * @return {@link Date}
-     * @throws ParseException if it is not possible to convert
      */
     public static Date stringToDate(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");

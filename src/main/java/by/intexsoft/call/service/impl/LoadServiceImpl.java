@@ -2,28 +2,41 @@ package by.intexsoft.call.service.impl;
 
 import by.intexsoft.call.pojo.RequestObject;
 import by.intexsoft.call.pojo.type.Type;
+import by.intexsoft.call.service.ConvertService;
 import by.intexsoft.call.service.LoaderService;
-import by.intexsoft.call.service.MapLoaderService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
+import static com.google.common.collect.Maps.newHashMap;
 
 /**
  * {@inheritDoc}
  */
 @Service
-@AllArgsConstructor
 public class LoadServiceImpl<T> implements LoaderService<T> {
-    private final MapLoaderService mapLoaderService;
+    private final Map<Type, ConvertService> map;
+
+    /**
+     * Create object of {@link java.util.HashMap} and loads all types of services
+     *
+     * @param converters list of all types of services
+     */
+    @Autowired
+    public LoadServiceImpl(List<ConvertService> converters) {
+        map = newHashMap();
+        converters.forEach(converter -> map.put(converter.getType(), converter));
+    }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<T> load(RequestObject requestObject) {
+    public List load(RequestObject requestObject) {
         Type type = getType(requestObject.getType());
-        return mapLoaderService.getService(type, requestObject.getStartDate(), requestObject.getEndDate());
+        return map.get(type).loadObjectByTime(requestObject.getStartDate(), requestObject.getEndDate());
     }
 
     /**

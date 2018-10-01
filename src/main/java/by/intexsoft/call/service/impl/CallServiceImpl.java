@@ -17,7 +17,7 @@ import static by.intexsoft.call.pojo.type.Type.CALL;
  */
 @Service
 @AllArgsConstructor
-public class CallServiceImpl implements ConvertService {
+public class CallServiceImpl implements ConvertService<Call> {
     private CallRepository callRepository;
 
     /**

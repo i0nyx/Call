@@ -5,7 +5,6 @@ import by.intexsoft.call.pojo.type.Type;
 import by.intexsoft.call.repositories.SmsRepository;
 import by.intexsoft.call.service.ConvertService;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,8 +17,7 @@ import static by.intexsoft.call.pojo.type.Type.SMS;
  */
 @Service
 @AllArgsConstructor
-@Slf4j
-public class SmsServiceImpl implements ConvertService {
+public class SmsServiceImpl implements ConvertService<Sms> {
     private final SmsRepository smsRepository;
 
     /**

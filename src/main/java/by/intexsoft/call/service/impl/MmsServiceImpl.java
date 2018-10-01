@@ -19,7 +19,7 @@ import static by.intexsoft.call.pojo.type.Type.MMS;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class MmsServiceImpl implements ConvertService {
+public class MmsServiceImpl implements ConvertService<Mms> {
     private final MmsRepository mmsRepository;
 
     /**

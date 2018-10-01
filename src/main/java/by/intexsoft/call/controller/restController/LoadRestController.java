@@ -43,7 +43,7 @@ public class LoadRestController {
         messageService.sendMessageToQueue(requestObject, a.toString());
     }
 
-    private RequestObject buildRequestObject(String data){
+    private RequestObject buildRequestObject(String data) {
         JSONObject json = new JSONObject(data);
         return RequestObject.builder().type(json.getString("type"))
                 .startDate(DateConverter.stringToDate(json.getString("start")))
@@ -51,14 +51,13 @@ public class LoadRestController {
                 .build();
     }
 
-    private ResponseObject buildResponseObject(RequestObject requestObject, int size){
+    private ResponseObject buildResponseObject(RequestObject requestObject, int size) {
         return ResponseObject.builder().startDate(requestObject.getStartDate())
                 .type(requestObject.getType())
                 .endDate(requestObject.getEndDate())
                 .size(size)
                 .build();
     }
-
 
 
 }
