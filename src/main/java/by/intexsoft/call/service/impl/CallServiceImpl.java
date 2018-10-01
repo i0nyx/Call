@@ -3,7 +3,7 @@ package by.intexsoft.call.service.impl;
 import by.intexsoft.call.pojo.Call;
 import by.intexsoft.call.pojo.type.Type;
 import by.intexsoft.call.repositories.CallRepository;
-import by.intexsoft.call.service.CallService;
+import by.intexsoft.call.service.ConvertService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,26 +17,20 @@ import static by.intexsoft.call.pojo.type.Type.CALL;
  */
 @Service
 @AllArgsConstructor
-public class CallServiceImpl implements CallService {
+public class CallServiceImpl implements ConvertService {
     private CallRepository callRepository;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Call> loadCallByTime(String type, Date start, Date end) {
-        List<Call> result = null;
-        if (type.equalsIgnoreCase(getType().toString())) {
-            result = callRepository.findAllByPeriod(start, end);
-        }
-        return result;
-    }
-
-    @Override
-    public List<Call> loadByTime(Date start, Date end) {
+    public List<Call> loadObjectByTime(Date start, Date end) {
         return callRepository.findAllByPeriod(start, end);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Type getType() {
         return CALL;

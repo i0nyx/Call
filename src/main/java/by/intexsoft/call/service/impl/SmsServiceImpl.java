@@ -3,7 +3,7 @@ package by.intexsoft.call.service.impl;
 import by.intexsoft.call.pojo.Sms;
 import by.intexsoft.call.pojo.type.Type;
 import by.intexsoft.call.repositories.SmsRepository;
-import by.intexsoft.call.service.SmsService;
+import by.intexsoft.call.service.ConvertService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,26 +19,20 @@ import static by.intexsoft.call.pojo.type.Type.SMS;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class SmsServiceImpl implements SmsService {
+public class SmsServiceImpl implements ConvertService {
     private final SmsRepository smsRepository;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Sms> getSmsPeriodTime(String type, Date start, Date end) {
-        List<Sms> result = null;
-        if (type.equalsIgnoreCase(getType().toString())) {
-            result = smsRepository.findAllByPeriod(start, end);
-        }
-        return result;
-    }
-
-    @Override
-    public List<Sms> loadByTime(Date start, Date end) {
+    public List<Sms> loadObjectByTime(Date start, Date end) {
         return smsRepository.findAllByPeriod(start, end);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Type getType() {
         return SMS;

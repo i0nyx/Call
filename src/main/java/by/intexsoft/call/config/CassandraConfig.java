@@ -1,11 +1,11 @@
 package by.intexsoft.call.config;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
 import org.springframework.data.cassandra.config.CassandraClusterFactoryBean;
 import org.springframework.data.cassandra.config.CassandraSessionFactoryBean;
@@ -26,16 +26,20 @@ import java.util.Objects;
 @EnableCassandraRepositories(basePackages = {"by.intexsoft.call.repositories"})
 @AllArgsConstructor
 
-// todo make via @Value without ENV
 public class CassandraConfig extends AbstractCassandraConfiguration {
-    private final Environment environment;
+    @Value("${cassandra.keyspace}")
+    private String cassandraKeySpace;
+    @Value("${cassandra.host}")
+    private String cassandraHost;
+    @Value("${cassandra.port}")
+    private int cassandraPort;
 
     /**
      * {@inheritDoc}
      */
     @Override
     protected String getKeyspaceName() {
-        return environment.getProperty("cassandra.keyspace");
+        return cassandraKeySpace;
     }
 
     /**
@@ -44,8 +48,8 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     @Bean
     public CassandraClusterFactoryBean cluster() {
         CassandraClusterFactoryBean cluster = new CassandraClusterFactoryBean();
-        cluster.setContactPoints(environment.getProperty("cassandra.host"));
-        cluster.setPort(Integer.parseInt(Objects.requireNonNull(environment.getProperty("cassandra.port"))));
+        cluster.setContactPoints(cassandraHost);
+        cluster.setPort(cassandraPort);
         return cluster;
     }
 

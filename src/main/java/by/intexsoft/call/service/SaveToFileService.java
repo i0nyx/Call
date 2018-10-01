@@ -11,9 +11,9 @@ public interface SaveToFileService {
     /**
      * Method writing data in file and save on file system
      *
-     * @param data saving object
-     * @param requestObject
-     * @param <T>  type object
+     * @param data          saving object
+     * @param requestObject contains type for name file
+     * @param <T>           type object
      */
     <T> void saveToFile(List<T> data, RequestObject requestObject);
 }

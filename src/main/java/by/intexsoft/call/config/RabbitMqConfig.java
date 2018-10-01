@@ -1,20 +1,18 @@
 package by.intexsoft.call.config;
 
-import lombok.AllArgsConstructor;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 
 import static by.intexsoft.call.pojo.type.Type.*;
-
 
 /**
  * Class configuration RabbitMQ
@@ -22,20 +20,24 @@ import static by.intexsoft.call.pojo.type.Type.*;
 @Configuration
 @ComponentScan("by.intexsoft.call")
 @PropertySource("classpath:rabbitmq.properties")
-@AllArgsConstructor
-
-// todo make via @Value without ENV
 public class RabbitMqConfig {
-    private final Environment env;
+    @Value("${rabbit.host}")
+    private String rabbitHost;
+    @Value("${rabbit.user}")
+    private String rabbitUser;
+    @Value("${rabbit.password}")
+    private String rabbitPassword;
+    @Value("${rabbit.exchange}")
+    private String rabbitExchange;
 
     /**
      * Create a {@link CachingConnectionFactory}
      */
     @Bean
     public CachingConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(env.getProperty("rabbit.host"));
-        connectionFactory.setUsername(env.getProperty("rabbit.user"));
-        connectionFactory.setPassword(env.getProperty("rabbit.password"));
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(rabbitHost);
+        connectionFactory.setUsername(rabbitUser);
+        connectionFactory.setPassword(rabbitPassword);
         return connectionFactory;
     }
 
@@ -78,7 +80,7 @@ public class RabbitMqConfig {
      */
     @Bean
     public DirectExchange directExchange() {
-        return new DirectExchange(env.getProperty("rabbit.exchange"));
+        return new DirectExchange(rabbitExchange);
     }
 
     /**
@@ -125,7 +127,7 @@ public class RabbitMqConfig {
     @Bean
     public RabbitTemplate template() {
         RabbitTemplate template = new RabbitTemplate(connectionFactory());
-        template.setExchange(env.getProperty("rabbit.exchange"));
+        template.setExchange(rabbitExchange);
         return template;
     }
 

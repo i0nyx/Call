@@ -9,8 +9,8 @@ public interface MessageService {
     /**
      * method send message in queue
      *
-     * @param requestObject
-     * @param message string data
+     * @param requestObject contains type for routing key
+     * @param message       string data
      */
     void sendMessageToQueue(RequestObject requestObject, String message);
 }

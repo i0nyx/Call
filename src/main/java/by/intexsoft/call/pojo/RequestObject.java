@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.Date;
 
 /**
- *
+ * Class of RequestObject with property type, startDate, endDate
  */
 @Setter
 @Getter

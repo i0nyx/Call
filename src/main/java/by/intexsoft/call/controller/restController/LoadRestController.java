@@ -35,12 +35,11 @@ public class LoadRestController {
      * @see #messageService
      */
     @PostMapping(value = "calls")
-    public void callInfo(@RequestBody String request) {
+    public void requestCall(@RequestBody String request) {
         RequestObject requestObject = buildRequestObject(request);
         List<?> listObjects = loaderService.load(requestObject);
-        fileService.saveToFile(listObjects, requestObject); // todo resolve problem with list
-//        String message = GenerateMessage.createMessage(startDate, endDate, listObjects.size());
-        ResponseObject a = new ResponseObject();
+        fileService.saveToFile(listObjects, requestObject);
+        ResponseObject a = buildResponseObject(requestObject, listObjects.size());
         messageService.sendMessageToQueue(requestObject, a.toString());
     }
 
@@ -49,6 +48,13 @@ public class LoadRestController {
         return RequestObject.builder().type(json.getString("type"))
                 .startDate(DateConverter.stringToDate(json.getString("start")))
                 .endDate(DateConverter.stringToDate(json.getString("end")))
+                .build();
+    }
+
+    private ResponseObject buildResponseObject(RequestObject requestObject, int size){
+        return ResponseObject.builder().startDate(requestObject.getStartDate())
+                .endDate(requestObject.getEndDate())
+                .size(size)
                 .build();
     }
 

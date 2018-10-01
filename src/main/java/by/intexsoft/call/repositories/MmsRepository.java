@@ -21,5 +21,5 @@ public interface MmsRepository extends CassandraRepository<Mms, Integer> {
      * @return {@link List<Mms>}
      */
     @Query("select * from mms where date>=?0 and date<=?1 allow filtering")
-    List<Mms> findAllPeriodTime(Date start, Date end);
+    List<Mms> findAllByPeriod(Date start, Date end);
 }
