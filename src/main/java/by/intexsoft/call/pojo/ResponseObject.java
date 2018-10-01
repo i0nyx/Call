@@ -11,6 +11,7 @@ import java.util.Date;
 @Setter
 @Builder
 public class ResponseObject {
+    private String type;
     private Date startDate;
     private Date endDate;
     private int size;
@@ -20,6 +21,6 @@ public class ResponseObject {
      */
     @Override
     public String toString() {
-        return "за период с " + startDate + " по " + endDate + " : " + size + " - обьекта(ов)";
+        return "" + type + "за период с " + startDate + " по " + endDate + " : " + size + " - обьекта(ов)";
     }
 }

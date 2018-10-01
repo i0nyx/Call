@@ -53,6 +53,7 @@ public class LoadRestController {
 
     private ResponseObject buildResponseObject(RequestObject requestObject, int size){
         return ResponseObject.builder().startDate(requestObject.getStartDate())
+                .type(requestObject.getType())
                 .endDate(requestObject.getEndDate())
                 .size(size)
                 .build();
