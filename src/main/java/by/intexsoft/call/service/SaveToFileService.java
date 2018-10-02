@@ -13,7 +13,6 @@ public interface SaveToFileService {
      *
      * @param data          saving object
      * @param requestObject contains type for name file
-     * @param <T>           type object
      */
-    <T> void saveToFile(List<T> data, RequestObject requestObject);
+    void saveToFile(List data, RequestObject requestObject);
 }

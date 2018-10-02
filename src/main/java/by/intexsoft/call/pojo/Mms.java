@@ -1,6 +1,8 @@
 package by.intexsoft.call.pojo;
 
 import by.intexsoft.call.pojo.type.Type;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
@@ -15,6 +17,8 @@ import java.util.UUID;
 @Table
 @Data
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Mms {
     @PrimaryKey
     private UUID uuid;

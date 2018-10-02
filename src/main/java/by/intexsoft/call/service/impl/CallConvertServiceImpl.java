@@ -1,6 +1,7 @@
 package by.intexsoft.call.service.impl;
 
 import by.intexsoft.call.pojo.Call;
+import by.intexsoft.call.pojo.RequestObject;
 import by.intexsoft.call.pojo.type.Type;
 import by.intexsoft.call.repositories.CallRepository;
 import by.intexsoft.call.service.ConvertService;
@@ -17,15 +18,17 @@ import static by.intexsoft.call.pojo.type.Type.CALL;
  */
 @Service
 @AllArgsConstructor
-public class CallServiceImpl implements ConvertService<Call> {
+public class CallConvertServiceImpl implements ConvertService<Call> {
     private CallRepository callRepository;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Call> loadObjectByTime(Date start, Date end) {
-        return callRepository.findAllByPeriod(start, end);
+    public List<Call> loadObjectByTime(final RequestObject requestObject) {
+        Date startDate = requestObject.getStartDate();
+        Date endDate = requestObject.getEndDate();
+        return callRepository.findAllByPeriod(startDate, endDate);
     }
 
     /**

@@ -1,8 +1,8 @@
 package by.intexsoft.call.service;
 
+import by.intexsoft.call.pojo.RequestObject;
 import by.intexsoft.call.pojo.type.Type;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,11 +13,10 @@ public interface ConvertService<T> {
     /**
      * Returns a list of all objects for a specific period of time.
      *
-     * @param start initial value
-     * @param end   end value
+     * @param requestObject object with request info for loading data from DB
      * @return {@link List<T>}
      */
-    List<T> loadObjectByTime(Date start, Date end);
+    List<T> loadObjectByTime(RequestObject requestObject);
 
     /**
      * Returns a specific type of service.

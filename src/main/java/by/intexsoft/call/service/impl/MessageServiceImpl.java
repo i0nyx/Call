@@ -20,7 +20,7 @@ public class MessageServiceImpl implements MessageService {
      * {@inheritDoc}
      */
     @Override
-    public void sendMessageToQueue(RequestObject requestObject, String message) {
+    public void sendMessageToQueue(final RequestObject requestObject, final String message) {
         template.convertAndSend(requestObject.getType(), message);
         log.info("send message success");
     }

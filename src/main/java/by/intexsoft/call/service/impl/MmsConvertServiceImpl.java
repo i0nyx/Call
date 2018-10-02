@@ -1,6 +1,7 @@
 package by.intexsoft.call.service.impl;
 
 import by.intexsoft.call.pojo.Mms;
+import by.intexsoft.call.pojo.RequestObject;
 import by.intexsoft.call.pojo.type.Type;
 import by.intexsoft.call.repositories.MmsRepository;
 import by.intexsoft.call.service.ConvertService;
@@ -19,15 +20,17 @@ import static by.intexsoft.call.pojo.type.Type.MMS;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class MmsServiceImpl implements ConvertService<Mms> {
+public class MmsConvertServiceImpl implements ConvertService<Mms> {
     private final MmsRepository mmsRepository;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Mms> loadObjectByTime(Date start, Date end) {
-        return mmsRepository.findAllByPeriod(start, end);
+    public List<Mms> loadObjectByTime(final RequestObject requestObject) {
+        Date startDate = requestObject.getStartDate();
+        Date endDate = requestObject.getEndDate();
+        return mmsRepository.findAllByPeriod(startDate, endDate);
     }
 
     /**

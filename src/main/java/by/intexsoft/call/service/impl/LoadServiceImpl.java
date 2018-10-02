@@ -16,7 +16,7 @@ import static com.google.common.collect.Maps.newHashMap;
  * {@inheritDoc}
  */
 @Service
-public class LoadServiceImpl<T> implements LoaderService<T> {
+public class LoadServiceImpl<T extends ConvertService> implements LoaderService<T> {
     private final Map<Type, ConvertService> map;
 
     /**
@@ -25,7 +25,7 @@ public class LoadServiceImpl<T> implements LoaderService<T> {
      * @param converters list of all types of services
      */
     @Autowired
-    public LoadServiceImpl(List<ConvertService> converters) {
+    public LoadServiceImpl(final List<ConvertService> converters) {
         map = newHashMap();
         converters.forEach(converter -> map.put(converter.getType(), converter));
     }
@@ -34,16 +34,16 @@ public class LoadServiceImpl<T> implements LoaderService<T> {
      * {@inheritDoc}
      */
     @Override
-    public List load(RequestObject requestObject) {
+    public List load(final RequestObject requestObject) {
         Type type = getType(requestObject.getType());
-        return map.get(type).loadObjectByTime(requestObject.getStartDate(), requestObject.getEndDate());
+        return map.get(type).loadObjectByTime(requestObject);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Type getType(String typeStr) {
+    public Type getType(final String typeStr) {
         return Type.valueOf(typeStr.toUpperCase());
     }
 }

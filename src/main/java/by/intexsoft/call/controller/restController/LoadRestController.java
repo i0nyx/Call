@@ -37,13 +37,12 @@ public class LoadRestController {
     @PostMapping(value = "calls")
     public void requestCall(@RequestBody String request) {
         RequestObject requestObject = buildRequestObject(request);
-        List<?> listObjects = loaderService.load(requestObject);
+        List listObjects = loaderService.load(requestObject);
         fileService.saveToFile(listObjects, requestObject);
-        ResponseObject a = buildResponseObject(requestObject, listObjects.size());
-        messageService.sendMessageToQueue(requestObject, a.toString());
+        messageService.sendMessageToQueue(requestObject, buildResponseObject(requestObject, listObjects.size()).toString());
     }
 
-    private RequestObject buildRequestObject(String data) {
+    private RequestObject buildRequestObject(final String data) {
         JSONObject json = new JSONObject(data);
         return RequestObject.builder().type(json.getString("type"))
                 .startDate(DateConverter.stringToDate(json.getString("start")))
@@ -51,7 +50,7 @@ public class LoadRestController {
                 .build();
     }
 
-    private ResponseObject buildResponseObject(RequestObject requestObject, int size) {
+    private ResponseObject buildResponseObject(final RequestObject requestObject, final int size) {
         return ResponseObject.builder().startDate(requestObject.getStartDate())
                 .type(requestObject.getType())
                 .endDate(requestObject.getEndDate())

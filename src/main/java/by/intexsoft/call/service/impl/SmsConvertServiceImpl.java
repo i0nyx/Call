@@ -1,5 +1,6 @@
 package by.intexsoft.call.service.impl;
 
+import by.intexsoft.call.pojo.RequestObject;
 import by.intexsoft.call.pojo.Sms;
 import by.intexsoft.call.pojo.type.Type;
 import by.intexsoft.call.repositories.SmsRepository;
@@ -17,15 +18,17 @@ import static by.intexsoft.call.pojo.type.Type.SMS;
  */
 @Service
 @AllArgsConstructor
-public class SmsServiceImpl implements ConvertService<Sms> {
+public class SmsConvertServiceImpl implements ConvertService<Sms> {
     private final SmsRepository smsRepository;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Sms> loadObjectByTime(Date start, Date end) {
-        return smsRepository.findAllByPeriod(start, end);
+    public List<Sms> loadObjectByTime(final RequestObject requestObject) {
+        Date startDate = requestObject.getStartDate();
+        Date endDate = requestObject.getEndDate();
+        return smsRepository.findAllByPeriod(startDate, endDate);
     }
 
     /**

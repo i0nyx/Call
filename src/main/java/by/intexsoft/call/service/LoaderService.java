@@ -9,14 +9,14 @@ import java.util.List;
  * Describes methods for working with returning a type and loading objects by type
  * @param <T> type of service
  */
-public interface LoaderService<T> {
+public interface LoaderService<T extends ConvertService> {
     /**
      * Method returns a list of objects by type
      * @param requestObject object with initial parameters
      * @return {@link List<T>}
      * @see #getType(String)
      */
-    List<T> load(RequestObject requestObject);
+    List load(RequestObject requestObject);
 
     /**
      * The method converts a string value to a {@link Type}.

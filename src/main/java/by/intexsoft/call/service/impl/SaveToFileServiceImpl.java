@@ -19,10 +19,10 @@ public class SaveToFileServiceImpl implements SaveToFileService {
      * {@inheritDoc}
      */
     @Override
-    public <T> void saveToFile(List<T> data, RequestObject requestObject) {
+    public void saveToFile(final List data, final RequestObject requestObject) {
         try (FileWriter writer = new FileWriter("D://" + requestObject.getType() + ".txt")) {
-            for (T t : data) {
-                writer.write(String.valueOf(t) + "\r\n");
+            for (Object object : data) {
+                writer.write(String.valueOf(object) + "\r\n");
             }
             log.info("file save success");
         } catch (IOException e) {
