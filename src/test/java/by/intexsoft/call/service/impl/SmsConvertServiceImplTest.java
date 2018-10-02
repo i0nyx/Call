@@ -15,6 +15,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
+/**
+ * This test checks the class performance {@link SmsConvertServiceImpl}
+ */
 @RunWith(PowerMockRunner.class)
 public class SmsConvertServiceImplTest {
     @Mock
@@ -22,6 +25,9 @@ public class SmsConvertServiceImplTest {
     @InjectMocks
     private SmsConvertServiceImpl service;
 
+    /**
+     * Check the receipt of a list of data from the database
+     */
     @Test
     public void loadObjectByTime() {
         RequestObject requestObject = mock(RequestObject.class);
@@ -29,6 +35,9 @@ public class SmsConvertServiceImplTest {
         verify(smsRepository, times(1)).findAllByPeriod(any(), any());
     }
 
+    /**
+     * Return type equivalence checking
+     */
     @Test
     public void getType() {
         assertEquals(service.getType(), Type.SMS);

@@ -15,18 +15,27 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.*;
 
+/**
+ * This test checks the class performance {@link MessageServiceImpl}
+ */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({MessageService.class, LoggerFactory.class})
 public class MessageServiceImplTest {
     private RabbitTemplate template;
     private MessageService messageService;
 
+    /**
+     * Initialization of initial parameters
+     */
     @Before
     public void setUp() {
         template = mock(RabbitTemplate.class);
         messageService = new MessageServiceImpl(template);
     }
 
+    /**
+     * Check sending message
+     */
     @Test
     public void testSendMessageToQueue() {
         mockStatic(LoggerFactory.class);
@@ -36,6 +45,4 @@ public class MessageServiceImplTest {
         when(LoggerFactory.getLogger(MessageServiceImpl.class)).thenReturn(log);
         verify(log);
     }
-
-
 }

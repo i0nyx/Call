@@ -24,12 +24,18 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.*;
 
+/**
+ * This test checks the class performance {@link SaveToFileServiceImpl}
+ */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({SaveToFileService.class, LoggerFactory.class})
 public class SaveToFileServiceImplTest {
     private SaveToFileService fileService;
     private List<Call> lists;
 
+    /**
+     * Setting the initial parameters
+     */
     @Before
     public void setUp() {
         fileService = new SaveToFileServiceImpl();
@@ -37,6 +43,11 @@ public class SaveToFileServiceImplTest {
         lists.add(buildCall());
     }
 
+    /**
+     * Verification of the recording and saving the file
+     *
+     * @throws Exception IOException Exception thrown when writing file
+     */
     @Test
     public void saveToFile() throws Exception {
         FileWriter writer = mock(FileWriter.class);
@@ -45,6 +56,11 @@ public class SaveToFileServiceImplTest {
         fileService.saveToFile(lists, buildRequestObject());
     }
 
+    /**
+     * Testing the operation of the method when an exception occurs
+     *
+     * @throws IOException Exception thrown when writing file
+     */
     @Test(expected = IOException.class)
     public void failedSaveToFile() throws IOException {
         FileWriter writer = mock(FileWriter.class);

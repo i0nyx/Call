@@ -15,6 +15,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
+/**
+ * This test checks the class performance {@link CallConvertServiceImpl}
+ */
 @RunWith(PowerMockRunner.class)
 public class CallServiceImplTest {
     @Mock
@@ -22,6 +25,9 @@ public class CallServiceImplTest {
     @InjectMocks
     private CallConvertServiceImpl callService;
 
+    /**
+     * Check the receipt of a list of data from the database
+     */
     @Test
     public void loadObjectByTime() {
         RequestObject requestObject = mock(RequestObject.class);
@@ -29,6 +35,9 @@ public class CallServiceImplTest {
         verify(callRepository, times(1)).findAllByPeriod(any(), any());
     }
 
+    /**
+     * Return type equivalence checking
+     */
     @Test
     public void getType() {
         assertEquals(callService.getType(), CALL);
