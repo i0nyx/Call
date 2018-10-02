@@ -12,38 +12,30 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.powermock.api.mockito.PowerMockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({MessageService.class, LoggerFactory.class})
 public class MessageServiceImplTest {
-    private MessageService messageService;
     private RabbitTemplate template;
+    private MessageService messageService;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         template = mock(RabbitTemplate.class);
         messageService = new MessageServiceImpl(template);
     }
 
     @Test
-    public void testSendMessageToQueue(){
+    public void testSendMessageToQueue() {
         mockStatic(LoggerFactory.class);
         Logger log = mock(Logger.class);
-        RequestObject requestObject = buildRequestObject();
-        String message = "test message";
-        messageService.sendMessageToQueue(requestObject, message);
-        verify(template).convertAndSend(anyString(), (Object) any());
+        messageService.sendMessageToQueue(new RequestObject(), "message");
+        verify(template).convertAndSend(any(), (Object) any());
         when(LoggerFactory.getLogger(MessageServiceImpl.class)).thenReturn(log);
         verify(log);
     }
 
-    private RequestObject buildRequestObject(){
-        return RequestObject.builder().type("call").build();
-    }
 
 }
